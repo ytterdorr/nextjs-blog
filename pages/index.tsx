@@ -6,13 +6,13 @@ import Link from "next/link";
 import { getSortedPostsData } from "../lib/posts";
 import useSWR from "swr";
 
-function Profile() {
-  const { data, error } = useSWR("/api/user", fetch);
+// function Profile() {
+//   const { data, error }= useSWR("/api/user", fetch);
 
-  if (error) return <div>falied to load</div>;
-  if (!data) return <div>loading...</div>;
-  return <div>hello {data.name}!</div>;
-}
+//   if (error) return <div>falied to load</div>;
+//   if (!data) return <div>loading...</div>;
+//   return <div>hello {data.name}!</div>;
+// }
 
 // export async function getSererSideProps(context) {
 //   return {
@@ -31,13 +31,21 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({
+   allPostsData 
+  }: {
+    allPostsData: {
+      date: string
+      title: string
+      id: string
+    }[]
+}) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles}>
+      <section className={utilStyles.headingMd}>
         <p>Hej på er fina människor.</p>
         <p>
           (This is a sample website - you’ll be building a site like this on{" "}
