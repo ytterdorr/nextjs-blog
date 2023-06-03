@@ -3,11 +3,11 @@ import Layout, { siteTitle } from "../components/Layout";
 import styles from "../styles/Home.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import { getSortedPostsData } from '../lib/posts';
-import useSWR from 'swr';
+import { getSortedPostsData } from "../lib/posts";
+import useSWR from "swr";
 
 function Profile() {
-  const { data, error } = useSWR('/api/user', fetch);
+  const { data, error } = useSWR("/api/user", fetch);
 
   if (error) return <div>falied to load</div>;
   if (!data) return <div>loading...</div>;
@@ -27,10 +27,9 @@ export async function getStaticProps() {
   return {
     props: {
       allPostsData,
-    }
+    },
   };
 }
-
 
 export default function Home({ allPostsData }) {
   return (
@@ -41,7 +40,7 @@ export default function Home({ allPostsData }) {
       <section className={utilStyles}>
         <p>Hej på er fina människor.</p>
         <p>
-          (This is a sample website - you’ll be building a site like this on{' '}
+          (This is a sample website - you’ll be building a site like this on{" "}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
       </section>
@@ -50,16 +49,15 @@ export default function Home({ allPostsData }) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              {title}
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <small className={utilStyles.lightText}>
+                {date}
+              </small>
             </li>
           ))}
         </ul>
       </section>
-
     </Layout>
   );
 }
